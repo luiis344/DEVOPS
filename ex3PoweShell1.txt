@@ -1,0 +1,31 @@
+
+$origem = "C:\Users\20231012001122\Downloads\Origem"
+$destinoTextos = "C:\Users\20231012001122\Downloads\Textos"
+$destinoImagens = "C:\Users\20231012001122\Downloads\Imagens"
+$destinoPDFs = "C:\Users\20231012001122\Downloads\PDF"
+$destinoOutros = "C:\Users\20231012001122\Downloads\Outros"
+
+
+$arquivos = Get-ChildItem -Path $origem
+
+
+foreach ($arquivo in $arquivos) {
+    
+    $extensao = $arquivo.Extension.ToLower()
+
+   
+    switch ($extensao) {
+        ".txt", ".doc", ".docx", ".rtf" {
+            Move-Item -Path $arquivo.FullName -Destination $destinoTextos -Force
+        }
+        ".jpg", ".jpeg", ".png", ".gif", ".bmp" {
+            Move-Item -Path $arquivo.FullName -Destination $destinoImagens -Force
+        }
+        ".pdf" {
+            Move-Item -Path $arquivo.FullName -Destination $destinoPDFs -Force
+        }
+        default {
+            Move-Item -Path $arquivo.FullName -Destination $destinoOutros -Force
+        }
+    }
+}
